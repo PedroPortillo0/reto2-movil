@@ -18,7 +18,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'UP Chiapas',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.teal, // Cambié a colores más suaves
+        brightness: Brightness.light, // Tema claro
+        scaffoldBackgroundColor: Colors.teal[50], // Fondo suave
       ),
       initialRoute: '/',
       routes: {
@@ -34,76 +36,106 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+
+  final List<Widget> _pages = [
+    const Center(child: Text('¡Bienvenido a la Página de Inicio!')),
+    const ContactScreen(),
+    Reto1Screen(),
+    const Reto2Screen(),
+    const Reto3Screen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Page'),
+        title: const Text('UP Chiapas'),
+        backgroundColor: Colors.teal[700], // AppBar en color teal oscuro
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
+      body: Row(
+        children: <Widget>[
+          // Navbar vertical usando NavigationRail con nuevos colores
+          NavigationRail(
+            backgroundColor: Colors.teal[100], // Fondo del NavigationRail
+            selectedIndex: _selectedIndex,
+            onDestinationSelected: (int index) {
+              setState(() {
+                _selectedIndex = index;
+                switch (index) {
+                  case 0:
+                    Navigator.pushNamed(context, '/home');
+                    break;
+                  case 1:
+                    Navigator.pushNamed(context, '/contact');
+                    break;
+                  case 2:
+                    Navigator.pushNamed(context, '/reto1');
+                    break;
+                  case 3:
+                    Navigator.pushNamed(context, '/reto2');
+                    break;
+                  case 4:
+                    Navigator.pushNamed(context, '/reto3');
+                    break;
+                }
+              });
+            },
+            labelType: NavigationRailLabelType.all,
+            selectedIconTheme: IconThemeData(color: Colors.teal[700], size: 30), // Icono seleccionado
+            unselectedIconTheme: IconThemeData(color: Colors.teal[400]), // Icono no seleccionado
+            selectedLabelTextStyle: TextStyle(
+              color: Colors.teal[900], // Texto del ítem seleccionado
+              fontWeight: FontWeight.bold,
+            ),
+            unselectedLabelTextStyle: TextStyle(
+              color: Colors.teal[600], // Texto del ítem no seleccionado
+            ),
+            destinations: const [
+              NavigationRailDestination(
+                icon: Icon(Icons.home),
+                selectedIcon: Icon(Icons.home),
+                label: Text('Home'),
               ),
-              child: const Text(
-                'Menu',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
+              NavigationRailDestination(
+                icon: Icon(Icons.contact_page),
+                selectedIcon: Icon(Icons.contact_page),
+                label: Text('Contact'),
               ),
+              NavigationRailDestination(
+                icon: Icon(Icons.assignment),
+                selectedIcon: Icon(Icons.assignment),
+                label: Text('Reto 1'),
+              ),
+              NavigationRailDestination(
+                icon: Icon(Icons.assignment_turned_in),
+                selectedIcon: Icon(Icons.assignment_turned_in),
+                label: Text('Reto 2'),
+              ),
+              NavigationRailDestination(
+                icon: Icon(Icons.assignment_rounded),
+                selectedIcon: Icon(Icons.assignment_rounded),
+                label: Text('Reto 3'),
+              ),
+            ],
+          ),
+          // Contenido principal de la pantalla
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.all(20.0),
+              color: Colors.teal[50], // Fondo del contenido principal
+              child: _pages[_selectedIndex],
             ),
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text('Home'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/home');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.contact_page),
-              title: const Text('Contact'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/contact');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.assignment),
-              title: const Text('Reto 1'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/reto1');  // Redirige a Reto 1
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.assignment_turned_in),
-              title: const Text('Reto 2'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/reto2');  // Redirige a Reto 2
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.assignment_rounded),
-              title: const Text('Reto 3'),  // Agrega el Reto 3 al menú
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/reto3');  // Redirige a Reto 3
-              },
-            ),
-          ],
-        ),
-      ),
-      body: const Center(
-        child: Text('Welcome to the Home Page!'),
+          ),
+        ],
       ),
     );
   }

@@ -32,12 +32,12 @@ class _Reto2ScreenState extends State<Reto2Screen> {
         // Cambiar el color del botón y el mensaje basado en el contenido del campo de texto
         if (email.isEmpty) {
           _btnColor = Colors.grey[400];
-        } else if (email.endsWith('@hotmail.com')) {
+        } else if (email.endsWith('@gmail.com')) {
           _btnColor = Colors.green;
           _statusMessage = "¡Correo válido!";
         } else {
           _btnColor = Colors.red;
-          _statusMessage = "Correo inválido. Debe terminar en '@hotmail.com'.";
+          _statusMessage = "Correo inválido. Debe terminar en '@gmail.com'.";
         }
       });
     });
@@ -61,7 +61,7 @@ class _Reto2ScreenState extends State<Reto2Screen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Reto 2 - Validador de Email'),
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.deepPurple,
         elevation: 10,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
@@ -80,7 +80,7 @@ class _Reto2ScreenState extends State<Reto2Screen> {
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
-                color: Colors.teal[800],
+                color: Colors.deepPurple[800],
               ),
             ),
             const SizedBox(height: 20), // Espacio vertical
@@ -88,16 +88,16 @@ class _Reto2ScreenState extends State<Reto2Screen> {
               controller: _controller,
               decoration: InputDecoration(
                 labelText: 'Email',
-                labelStyle: TextStyle(color: Colors.teal[600]),
+                labelStyle: TextStyle(color: Colors.deepPurple[600]),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15),
                 ),
-                prefixIcon: Icon(Icons.email, color: Colors.teal[600]),
+                prefixIcon: Icon(Icons.email, color: Colors.deepPurple[600]),
                 filled: true,
-                fillColor: Colors.teal[50],
+                fillColor: Colors.deepPurple[50],
               ),
               style: TextStyle(
-                color: Colors.teal[900],
+                color: Colors.deepPurple[900],
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -127,7 +127,7 @@ class _Reto2ScreenState extends State<Reto2Screen> {
               'Email ingresado es: $_inputEmail',
               style: TextStyle(
                 fontSize: 18,
-                color: Colors.teal[800],
+                color: Colors.deepPurple[800],
                 fontWeight: FontWeight.w500,
               ),
             ),
